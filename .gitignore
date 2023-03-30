@@ -133,4 +133,43 @@ Danylo generated
 .DS_Store
 Thumbs.db
 
+# Build results
+/bin/
+/obj/
+
+# .NET Core
+*.dll
+*.exe
+*.pdb
+*.user
+*.vscode
+*.vs
+*.suo
+*.cache
+*.log
+project.lock.json
+project.fragment.lock.json
+project.assets.json
+appsettings.Development.json
+appsettings.json
+*.csproj.user
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+*.nupkg
+*.snupkg
+*.visualstudio
+*.resharper
+*.ReSharper
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio Test Output
+TestResults/
+
+# Other
+packages/
+*.sln.cache
+*.sln.docstates
+
 
