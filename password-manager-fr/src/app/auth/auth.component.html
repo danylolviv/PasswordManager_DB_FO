@@ -1,9 +1,11 @@
 <div class="container">
   <mat-card class="card">
+    <mat-card-title class="title">{{ isLoginMode ? 'Login' : 'Register' }}</mat-card-title>
     <mat-card-header>
       <img src="/assets/logo.png" alt="Unpassword Logo" class="logo">
-      <mat-card-title>{{ isLoginMode ? 'Login' : 'Register' }}</mat-card-title>
+      
     </mat-card-header>
+   
     <mat-card-content>
       <form class="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
@@ -20,8 +22,8 @@
             <input matInput type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
           </mat-form-field>
         </div>
-        <button mat-raised-button color="primary">{{ isLoginMode ? 'Login' : 'Register' }}</button>
-        <button mat-raised-button color="accent" type="button" (click)="onSwitchMode()">{{ isLoginMode ? 'Switch to Register' : 'Switch to Login' }}</button>
+        <button mat-raised-button color="primary" class="buttonOne">{{ isLoginMode ? 'Login' : 'Register' }}</button>
+        <button mat-raised-button color="accent" type="button" class="buttonOne" (click)="onSwitchMode()">{{ isLoginMode ? 'Switch to Register' : 'Switch to Login' }}</button>
       </form>
     </mat-card-content>
   </mat-card>

@@ -113,6 +113,7 @@ builder.Services.AddDbContext<AuthDbContext>(
     }, ServiceLifetime.Transient);
 
 //Database init setup SQLite
+/*
 builder.Services.AddDbContext<MainDbContext>(
     opt =>
     {
@@ -120,17 +121,17 @@ builder.Services.AddDbContext<MainDbContext>(
             .UseLoggerFactory(loggerFactory)
             .UseSqlite("Data Source=PasswordManagementMain.db");
     }, ServiceLifetime.Transient);
-
+*/
 builder.Services.AddControllers();
 
 // builder.Services.AddTransient<DbSeeding>();
 builder.Services.AddTransient<AuthDbSeeding>();
-builder.Services.AddTransient<MainDbSeeding>();
+//builder.Services.AddTransient<MainDbSeeding>();
 
 var app = builder.Build();
 
 SeedAuthDevelopment(app);
-SeedMainDevelopment(app);
+//SeedMainDevelopment(app);
 
 void SeedAuthDevelopment(IHost app)
 {
