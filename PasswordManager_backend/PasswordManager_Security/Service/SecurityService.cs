@@ -66,10 +66,9 @@ public class SecurityService : ISecurityService
     public AuthUser GenerateNewAuthUser(string username, string password)
     {
       // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
-      var defaultpassword = "password";
       var salt = GenerateSalt();
 
-      var hashedPassword = HashedPassword(salt, defaultpassword);
+      var hashedPassword = HashedPassword(salt, password);
 
       AuthUser newUser = _authServ.Create(new AuthUser()
       {

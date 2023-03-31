@@ -47,7 +47,7 @@ public class AuthController : ControllerBase
         try
         {
             var authUser =
-                _service.GenerateNewAuthUser(createAuthUserDto.Username);
+                _service.GenerateNewAuthUser(createAuthUserDto.Username, createAuthUserDto.Password);
             return new AuthUserDto
             {
                 Id = authUser.Id, 
