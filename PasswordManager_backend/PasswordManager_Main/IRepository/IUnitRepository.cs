@@ -9,7 +9,7 @@ public interface IUnitRepository
 
     // Read
     PasswordUnit GetPasswordUnitById(int id);
-    IEnumerable<PasswordUnit> GetAllPasswordUnits();
+    IEnumerable<PasswordUnit> GetAllPasswordUnits(int userId);
 
     // Update
     void UpdatePasswordUnit(PasswordUnit passwordUnit);

@@ -2,19 +2,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PasswordManager_Main.IService;
 using PasswordManager_Main.Models;
+using PasswordManager_Rest.Dto;
+using PasswordManager_Security.IService;
 
 namespace PasswordManager_Rest.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+// [Authorize]
 public class PasswordManagerController : ControllerBase
 {
     private readonly IPasswordUnitService _passwordUnitService;
+    private readonly IAuthUserService _authUserService;
 
     public PasswordManagerController(IPasswordUnitService passwordUnitService)
     {
         _passwordUnitService = passwordUnitService;
+        
     }
 
     [HttpPost]
@@ -35,10 +39,10 @@ public class PasswordManagerController : ControllerBase
         return Ok(passwordUnit);
     }
 
-    [HttpGet]
-    public IActionResult GetAllPasswordUnits([FromQuery] string masterPassword)
+    [HttpPost(nameof(GetAllPasswordUnits))]
+    public async Task<IActionResult> GetAllPasswordUnits(LoginDto dto)
     {
-        IEnumerable<PasswordUnit> passwordUnits = _passwordUnitService.GetAllPasswordUnits(masterPassword);
+        IEnumerable<PasswordUnit> passwordUnits = _passwordUnitService.GetAllPasswordUnits(dto.Username, dto.Password);
         return Ok(passwordUnits);
     }
 

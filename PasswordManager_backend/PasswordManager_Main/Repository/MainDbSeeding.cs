@@ -26,7 +26,7 @@ public class MainDbSeeding: IMainDbSeeding
             Website = "example.com",
             Username = "user1",
             Password = "password1",
-            MasterPassword = "2b7e151628aed2a6abf7158809cf4f3c",
+            MasterPassword = "petro",
             CreatedAt = DateTime.Now
         };
 
@@ -36,7 +36,7 @@ public class MainDbSeeding: IMainDbSeeding
             Website = "test.com",
             Username = "user2",
             Password = "password2",
-            MasterPassword = "2b7e151628aed2a6abf7158809cf4f3c",
+            MasterPassword = "petro",
             CreatedAt = DateTime.Now
         };
         
