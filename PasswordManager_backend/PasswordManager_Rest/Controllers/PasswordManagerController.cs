@@ -53,14 +53,14 @@ public class PasswordManagerController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult DeletePasswordUnit(int id)
+    [HttpDelete]
+    public IActionResult DeletePasswordUnit([FromBody] PasswordUnit passwordUnit)
     {
-        PasswordUnit passwordUnit = _passwordUnitService.GetPasswordUnitById(id, "");
-        if (passwordUnit == null)
-        {
-            return NotFound();
-        }
+        // PasswordUnit passwordUnit = _passwordUnitService.GetPasswordUnitById(id, "");
+        // if (passwordUnit == null)
+        // {
+        //     return NotFound();
+        // }
         _passwordUnitService.DeletePasswordUnit(passwordUnit);
         return Ok();
     }
