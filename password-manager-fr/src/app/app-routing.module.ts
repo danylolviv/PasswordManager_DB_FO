@@ -5,6 +5,7 @@ import {PasswordManagerComponent} from "./password-manager/password-manager.comp
 
 const routes: Routes = [
   {path: 'login', component: AuthComponent},
+  {path: '', component: AuthComponent}, 
   {path: 'main', component: PasswordManagerComponent},
 ];
 
