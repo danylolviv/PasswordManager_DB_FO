@@ -165,6 +165,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("eventsTeam-development");
+
 app.MapControllers();
 
 app.Run();

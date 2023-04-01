@@ -7,12 +7,13 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://example.com/api';
+  private apiUrl = 'https://localhost:5028/api';
 
   constructor(private http: HttpClient) { }
 
   login(username: string | undefined, password: string | undefined): Observable<any> {
-    const url = `${this.apiUrl}/auth/login`;
+    debugger
+    const url = `${this.apiUrl}/Auth/Login`;
     return this.http.post<{ token: string }>(url, { username, password })
       .pipe(
         tap(response => {
@@ -27,18 +28,8 @@ export class AuthService {
   }
 
   register(username: string | undefined, password: string | undefined, confirmPassword: string | undefined): Observable<any> {
-    const url = `${this.apiUrl}/auth/register`;
+    const url = `${this.apiUrl}/Auth/CreateUser`;
     return this.http.post<{ token: string }>(url, { username, password, confirmPassword })
-      .pipe(
-        tap(response => {
-          if (response.token) {
-            localStorage.setItem('token', response.token);
-            return true;
-          } else {
-            return false;
-          }
-        })
-      );
   }
 
   logout(): void {

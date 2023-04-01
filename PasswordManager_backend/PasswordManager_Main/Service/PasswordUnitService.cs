@@ -19,8 +19,8 @@ public class PasswordUnitService : IPasswordUnitService
         {
             try
             {
-                passwordUnit.PasswordHash = _encryptionService.Encrypt(passwordUnit.PasswordHash, passwordUnit.PasswordSalt);
-                passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, passwordUnit.PasswordSalt);
+                passwordUnit.Password = _encryptionService.Encrypt(passwordUnit.Password, passwordUnit.MasterPassword);
+                passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, passwordUnit.MasterPassword);
                 _context.PasswordUnits.Add(passwordUnit);
                 _context.SaveChanges();
             }
@@ -36,7 +36,7 @@ public class PasswordUnitService : IPasswordUnitService
             try
             {
                 var passwordUnit = _context.PasswordUnits.Find(id);
-                passwordUnit.PasswordHash = _encryptionService.Decrypt(passwordUnit.PasswordHash, masterPassword);
+                passwordUnit.Password = _encryptionService.Decrypt(passwordUnit.Password, masterPassword);
                 passwordUnit.Username = _encryptionService.Decrypt(passwordUnit.Username, masterPassword);
                 return passwordUnit;
             }
@@ -54,7 +54,7 @@ public class PasswordUnitService : IPasswordUnitService
                 var passwordUnits = _context.PasswordUnits.ToList();
                 foreach (var passwordUnit in passwordUnits)
                 {
-                    passwordUnit.PasswordHash = _encryptionService.Decrypt(passwordUnit.PasswordHash, masterPassword);
+                    passwordUnit.Password = _encryptionService.Decrypt(passwordUnit.Password, masterPassword);
                     passwordUnit.Username = _encryptionService.Decrypt(passwordUnit.Username, masterPassword);
                 }
                 return passwordUnits;
@@ -70,7 +70,7 @@ public class PasswordUnitService : IPasswordUnitService
         {
             try
             {
-                passwordUnit.PasswordHash = _encryptionService.Encrypt(passwordUnit.PasswordHash, masterPassword);
+                passwordUnit.Password = _encryptionService.Encrypt(passwordUnit.Password, masterPassword);
                 passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, masterPassword);
                 _context.PasswordUnits.Update(passwordUnit);
                 _context.SaveChanges();

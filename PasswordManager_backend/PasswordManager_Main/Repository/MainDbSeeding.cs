@@ -25,8 +25,8 @@ public class MainDbSeeding: IMainDbSeeding
             UserId = 1,
             Website = "example.com",
             Username = "user1",
-            PasswordHash = "password1",
-            PasswordSalt = "2b7e151628aed2a6abf7158809cf4f3c",
+            Password = "password1",
+            MasterPassword = "2b7e151628aed2a6abf7158809cf4f3c",
             CreatedAt = DateTime.Now
         };
 
@@ -35,8 +35,8 @@ public class MainDbSeeding: IMainDbSeeding
             UserId = 2,
             Website = "test.com",
             Username = "user2",
-            PasswordHash = "password2",
-            PasswordSalt = "2b7e151628aed2a6abf7158809cf4f3c",
+            Password = "password2",
+            MasterPassword = "2b7e151628aed2a6abf7158809cf4f3c",
             CreatedAt = DateTime.Now
         };
         

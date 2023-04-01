@@ -30,8 +30,9 @@ export class AuthComponent {
       this.authService.register(this.username, this.password, this.confirmPassword)
         .subscribe(
             (result: any) => {
+              debugger
             if (result) {
-              this.router.navigate(['/dashboard']);
+              this.authService.login(this.username, this.password)
             }
           },
             (error: any) => console.log(error)
