@@ -1,6 +1,9 @@
+using PasswordManager_Main.IRepository;
 using PasswordManager_Main.IService;
 using PasswordManager_Main.Models;
 using PasswordManager_Main.Repository;
+using PasswordManager_Security.IService;
+using PasswordManager_Security.Service;
 
 namespace PasswordManager_Main.Service;
 
@@ -8,11 +11,15 @@ public class PasswordUnitService : IPasswordUnitService
 {
     private readonly MainDbContext _context;
     private IEncryptionService _encryptionService;
+    private IAuthUserService _userService;
+    private IUnitRepository _passwordRepository;
 
-    public PasswordUnitService(MainDbContext context)
+    public PasswordUnitService(MainDbContext context, IAuthUserService userService, IUnitRepository passwordRepository)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        _userService = userService;
         _encryptionService = new EncryptionService();
+        _passwordRepository = passwordRepository;
     }
 
     public void AddPasswordUnit(PasswordUnit passwordUnit)
@@ -47,11 +54,14 @@ public class PasswordUnitService : IPasswordUnitService
             }
         }
 
-        public IEnumerable<PasswordUnit> GetAllPasswordUnits(string masterPassword)
+        public IEnumerable<PasswordUnit> GetAllPasswordUnits(string username, string masterPassword)
         {
             try
             {
-                var passwordUnits = _context.PasswordUnits.ToList();
+                var user = _userService.GetUser(username);
+
+                
+                var passwordUnits = _passwordRepository.GetAllPasswordUnits(user.Id);;
                 foreach (var passwordUnit in passwordUnits)
                 {
                     passwordUnit.Password = _encryptionService.Decrypt(passwordUnit.Password, masterPassword);

@@ -39,11 +39,11 @@ public class PasswordUnitRepository : IUnitRepository
         }
     }
 
-    public IEnumerable<PasswordUnit> GetAllPasswordUnits()
+    public IEnumerable<PasswordUnit> GetAllPasswordUnits(int id)
     {
         try
         {
-            return _context.PasswordUnits.ToList();
+            return _context.PasswordUnits.Where(p => p.UserId == id).ToList();
         }
         catch (Exception ex)
         {
