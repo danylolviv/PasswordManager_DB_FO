@@ -1,3 +1,4 @@
+using PasswordManager_Main.IService;
 using PasswordManager_Main.Models;
 
 namespace PasswordManager_Main.Repository;
@@ -5,41 +6,42 @@ namespace PasswordManager_Main.Repository;
 public class MainDbSeeding: IMainDbSeeding
 {
     private readonly MainDbContext _ctx;
+    private readonly IPasswordUnitService _passwordunitService;
 
-    public MainDbSeeding(MainDbContext ctx)
+    public MainDbSeeding(MainDbContext ctx, IPasswordUnitService passwordService)
     {
         _ctx = ctx;
+        _passwordunitService = passwordService;
+
     }
 
     public void SeedDevelopment()
     {
-        // _ctx.Database.EnsureDeleted();
-        // _ctx.Database.EnsureCreated();
+        _ctx.Database.EnsureDeleted();
+        _ctx.Database.EnsureCreated();
 
-        var passwordUnits = new List<PasswordUnit>
+        var pass1 = new PasswordUnit
         {
-            new PasswordUnit
-            {
-                UserId = 1,
-                Website = "example.com",
-                Username = "user1",
-                PasswordHash = "password1",
-                PasswordSalt = "salt1",
-                CreatedAt = DateTime.Now
-            },
-            new PasswordUnit
-            {
-                UserId = 2,
-                Website = "test.com",
-                Username = "user2",
-                PasswordHash = "password2",
-                PasswordSalt = "salt2",
-                CreatedAt = DateTime.Now
-            }
+            UserId = 1,
+            Website = "example.com",
+            Username = "user1",
+            PasswordHash = "password1",
+            PasswordSalt = "2b7e151628aed2a6abf7158809cf4f3c",
+            CreatedAt = DateTime.Now
         };
 
-        _ctx.PasswordUnits.AddRange(passwordUnits);
-        _ctx.SaveChanges();
+        var pass2 = new PasswordUnit
+        {
+            UserId = 2,
+            Website = "test.com",
+            Username = "user2",
+            PasswordHash = "password2",
+            PasswordSalt = "2b7e151628aed2a6abf7158809cf4f3c",
+            CreatedAt = DateTime.Now
+        };
+        
+        _passwordunitService.AddPasswordUnit(pass1);
+        _passwordunitService.AddPasswordUnit(pass2);
     }
 
     public void SeedProduction()

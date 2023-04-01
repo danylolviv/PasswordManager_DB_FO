@@ -171,5 +171,13 @@ TestResults/
 packages/
 *.sln.cache
 *.sln.docstates
-
+*.db
+*.db-shm
+*.db-wal
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.vspscc
+**/*.vssscc
 
