@@ -174,5 +174,10 @@ packages/
 *.db
 *.db-shm
 *.db-wal
-
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.vspscc
+**/*.vssscc
 
