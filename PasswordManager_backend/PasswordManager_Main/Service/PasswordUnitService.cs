@@ -15,12 +15,12 @@ public class PasswordUnitService : IPasswordUnitService
         _encryptionService = new EncryptionService();
     }
 
-    public void AddPasswordUnit(PasswordUnit passwordUnit, string masterPassword)
+    public void AddPasswordUnit(PasswordUnit passwordUnit)
         {
             try
             {
-                passwordUnit.PasswordHash = _encryptionService.Encrypt(passwordUnit.PasswordHash, masterPassword);
-                passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, masterPassword);
+                passwordUnit.PasswordHash = _encryptionService.Encrypt(passwordUnit.PasswordHash, passwordUnit.PasswordSalt);
+                passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, passwordUnit.PasswordSalt);
                 _context.PasswordUnits.Add(passwordUnit);
                 _context.SaveChanges();
             }

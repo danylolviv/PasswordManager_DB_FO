@@ -18,9 +18,9 @@ public class PasswordManagerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddPasswordUnit([FromBody] PasswordUnit passwordUnit, [FromQuery] string masterPassword)
+    public IActionResult AddPasswordUnit([FromBody] PasswordUnit passwordUnit)
     {
-        _passwordUnitService.AddPasswordUnit(passwordUnit, masterPassword);
+        _passwordUnitService.AddPasswordUnit(passwordUnit);
         return Ok();
     }
 

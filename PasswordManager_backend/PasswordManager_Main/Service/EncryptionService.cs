@@ -11,7 +11,9 @@ public class EncryptionService : IEncryptionService
     {
         using (Aes aesAlg = Aes.Create())
         {
-            aesAlg.Key = Encoding.UTF8.GetBytes(key);
+            var properSizeString = Generate128BitString(key);
+            aesAlg.Key = Encoding.UTF8.GetBytes(properSizeString);
+            
             aesAlg.GenerateIV();
 
             ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -40,7 +42,8 @@ public class EncryptionService : IEncryptionService
 
         using (Aes aesAlg = Aes.Create())
         {
-            aesAlg.Key = Encoding.UTF8.GetBytes(key);
+            var properSizeString = Generate128BitString(key);
+            aesAlg.Key = Encoding.UTF8.GetBytes(properSizeString);
             aesAlg.IV = ivAndEncryptedBytes.Take(aesAlg.IV.Length).ToArray();
 
             ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
@@ -55,6 +58,17 @@ public class EncryptionService : IEncryptionService
                     }
                 }
             }
+        }
+    }
+    
+    public static string Generate128BitString(string input)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            byte[] first16Bytes = new byte[16];
+            Array.Copy(hash, 0, first16Bytes, 0, 16);
+            return BitConverter.ToString(first16Bytes).Replace("-", "");
         }
     }
 }

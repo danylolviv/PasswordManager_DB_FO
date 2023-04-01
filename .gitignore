@@ -171,5 +171,8 @@ TestResults/
 packages/
 *.sln.cache
 *.sln.docstates
+*.db
+*.db-shm
+*.db-wal
 
 

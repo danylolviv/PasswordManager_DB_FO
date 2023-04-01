@@ -4,7 +4,7 @@ namespace PasswordManager_Main.IService;
 
 public interface IPasswordUnitService
 {
-    void AddPasswordUnit(PasswordUnit passwordUnit, string masterPassword);
+    void AddPasswordUnit(PasswordUnit passwordUnit);
     PasswordUnit GetPasswordUnitById(int id, string masterPassword);
     IEnumerable<PasswordUnit> GetAllPasswordUnits(string masterPassword);
     void UpdatePasswordUnit(PasswordUnit passwordUnit, string masterPassword);
