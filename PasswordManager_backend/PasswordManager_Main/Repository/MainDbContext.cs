@@ -10,6 +10,6 @@ public class MainDbContext : DbContext
   
     }
 
-    public DbSet<PasswordUnit> PasswordUnits { get; set; }
+    public DbSet<PasswordEntity> PasswordEntities { get; set; }
 
 }

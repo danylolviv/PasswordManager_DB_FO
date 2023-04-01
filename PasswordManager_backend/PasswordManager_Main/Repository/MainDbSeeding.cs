@@ -24,9 +24,10 @@ public class MainDbSeeding: IMainDbSeeding
         {
             UserId = 1,
             Website = "example.com",
+            UsernameAuth = "petro",
             Username = "user1",
             Password = "password1",
-            MasterPassword = "petro",
+            MasterPassword = "password",
             CreatedAt = DateTime.Now
         };
 
@@ -34,9 +35,10 @@ public class MainDbSeeding: IMainDbSeeding
         {
             UserId = 2,
             Website = "test.com",
+            UsernameAuth = "admin",
             Username = "user2",
             Password = "password2",
-            MasterPassword = "petro",
+            MasterPassword = "password",
             CreatedAt = DateTime.Now
         };
         

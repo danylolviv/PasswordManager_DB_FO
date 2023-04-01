@@ -26,9 +26,11 @@ public class PasswordUnitService : IPasswordUnitService
         {
             try
             {
+                var user = _userService.GetUser(passwordUnit.UsernameAuth);
+                passwordUnit.UserId = user.Id;
                 passwordUnit.Password = _encryptionService.Encrypt(passwordUnit.Password, passwordUnit.MasterPassword);
                 passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, passwordUnit.MasterPassword);
-                _context.PasswordUnits.Add(passwordUnit);
+                _passwordRepository.AddPasswordUnit(passwordUnit);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -42,7 +44,7 @@ public class PasswordUnitService : IPasswordUnitService
         {
             try
             {
-                var passwordUnit = _context.PasswordUnits.Find(id);
+                var passwordUnit = _passwordRepository.GetPasswordUnitById(id);
                 passwordUnit.Password = _encryptionService.Decrypt(passwordUnit.Password, masterPassword);
                 passwordUnit.Username = _encryptionService.Decrypt(passwordUnit.Username, masterPassword);
                 return passwordUnit;
@@ -82,7 +84,7 @@ public class PasswordUnitService : IPasswordUnitService
             {
                 passwordUnit.Password = _encryptionService.Encrypt(passwordUnit.Password, masterPassword);
                 passwordUnit.Username = _encryptionService.Encrypt(passwordUnit.Username, masterPassword);
-                _context.PasswordUnits.Update(passwordUnit);
+               _passwordRepository.UpdatePasswordUnit(passwordUnit);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -96,7 +98,9 @@ public class PasswordUnitService : IPasswordUnitService
         {
             try
             {
-                _context.PasswordUnits.Remove(passwordUnit);
+                var user = _userService.GetUser(passwordUnit.UsernameAuth);
+                passwordUnit.UserId = user.Id;
+                _passwordRepository.DeletePasswordUnit(passwordUnit);
                 _context.SaveChanges();
             }
             catch (Exception ex)
