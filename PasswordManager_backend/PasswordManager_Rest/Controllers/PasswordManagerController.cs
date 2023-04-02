@@ -42,6 +42,7 @@ public class PasswordManagerController : ControllerBase
     [HttpPost(nameof(GetAllPasswordUnits))]
     public async Task<IActionResult> GetAllPasswordUnits(LoginDto dto)
     {
+        var test = dto;
         IEnumerable<PasswordUnit> passwordUnits = _passwordUnitService.GetAllPasswordUnits(dto.Username, dto.Password);
         return Ok(passwordUnits);
     }
@@ -53,14 +54,9 @@ public class PasswordManagerController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
+    [HttpPost(nameof(DeletePasswordUnit))]
     public IActionResult DeletePasswordUnit([FromBody] PasswordUnit passwordUnit)
     {
-        // PasswordUnit passwordUnit = _passwordUnitService.GetPasswordUnitById(id, "");
-        // if (passwordUnit == null)
-        // {
-        //     return NotFound();
-        // }
         _passwordUnitService.DeletePasswordUnit(passwordUnit);
         return Ok();
     }

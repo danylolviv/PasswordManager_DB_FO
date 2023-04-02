@@ -12,13 +12,18 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username: string | undefined, password: string | undefined): Observable<any> {
-    debugger
     const url = `${this.apiUrl}/Auth/Login`;
+    localStorage.setItem('password', password || 'none');
+    localStorage.setItem('username', username || 'none');
+
+    console.log("servie: ", username);
+
     return this.http.post<{ token: string }>(url, { username, password })
       .pipe(
-        tap(response => {
-          if (response.token) {
-            localStorage.setItem('token', response.token);
+        tap((response: any) => {
+          console.log("response", response.token)
+          if (response.jwt) {
+            localStorage.setItem('token', response.jwt);
             return true;
           } else {
             return false;
@@ -29,7 +34,17 @@ export class AuthService {
 
   register(username: string | undefined, password: string | undefined, confirmPassword: string | undefined): Observable<any> {
     const url = `${this.apiUrl}/Auth/CreateUser`;
-    return this.http.post<{ token: string }>(url, { username, password, confirmPassword })
+    return this.http.post<{ token: string }>(url, { username, password })
+      // .pipe(
+      //   tap(response => {
+      //     if (response.token) {
+      //       localStorage.setItem('token', response.token);
+      //       return true;
+      //     } else {
+      //       return false;
+      //     }
+      //   })
+      // );
   }
 
   logout(): void {

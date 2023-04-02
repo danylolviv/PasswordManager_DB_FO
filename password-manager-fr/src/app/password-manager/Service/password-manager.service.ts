@@ -7,27 +7,38 @@ import {PasswordUnitModel} from "../../auth/Model/PasswordUnitModel";
   providedIn: 'root'
 })
 export class PasswordManagerService {
-  private apiUrl = 'http://localhost:3000/units';
+  private apiUrl = 'https://localhost:5028/api';
+
 
   constructor(private http: HttpClient) {}
 
-  getUnits(): Observable<PasswordUnitModel[]> {
-    return this.http.get<PasswordUnitModel[]>(this.apiUrl);
+  getUnits(unit: PasswordUnitModel): Observable<PasswordUnitModel[]> { // masterpassword username
+    const dto = {password: unit.masterPassword, username: unit.usernameAuth}
+    const url = `${this.apiUrl}/PasswordManager/GetAllPasswordUnits`;
+    console.log("get", unit);
+    return this.http.post<PasswordUnitModel[]>(url, dto);
   }
 
-  createUnit(unit: PasswordUnitModel): Observable<PasswordUnitModel> {
-    return this.http.post<PasswordUnitModel>(this.apiUrl, unit);
+
+  createUnit(unit: PasswordUnitModel): Observable<PasswordUnitModel> { // masterpassword all
+    const url = `${this.apiUrl}/PasswordManager`;
+    console.log("unit", unit);
+    return this.http.post<PasswordUnitModel>(url, unit);
   }
 
-  updateUnit(unit: PasswordUnitModel): Observable<PasswordUnitModel> {
-    const url = `${this.apiUrl}/${unit.id}`;
+  updateUnit(unit: PasswordUnitModel): Observable<PasswordUnitModel> {  // masterpassword all
+    const url = `${this.apiUrl}/edit`;
     return this.http.put<PasswordUnitModel>(url, unit);
   }
 
-  deleteUnit(id: string): Observable<PasswordUnitModel> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<PasswordUnitModel>(url);
+  deleteUniT(unit: PasswordUnitModel): Observable<any> { // id and username
+    const url = `${this.apiUrl}/PasswordManager/DeletePasswordUnit`;
+    unit.usernameAuth = localStorage.getItem('username') || 'none'
+    console.log("get", unit);
+    return this.http.post<any>(url, unit);
   }
+
+
 
   generatePassword(): string {
     const length = 12;
